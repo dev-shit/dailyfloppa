@@ -54,7 +54,5 @@ func SendFloppa(s *discordgo.Session) {
         logger.Log(err.Error())
         return
     }
-
-    logger.Log("Floppa sent")
 }
 
