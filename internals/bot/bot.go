@@ -24,6 +24,17 @@ func Init() *discordgo.Session {
     return s
 }
 
+func getEmbed() *discordgo.MessageEmbed {
+    return &discordgo.MessageEmbed{
+        Title: "Floppa of the day",
+        Description: "One floppa a day keeps the doctor away",
+        URL: "https://github.com/dev-shit/dailyfloppa",
+        Image: &discordgo.MessageEmbedImage{
+            URL: "https://media1.tenor.com/images/91e86ad9d8c1472d361b554a9e905f08/tenor.gif",
+        },
+    }
+}
+
 func SendFloppa(s *discordgo.Session) {
     channelId, ok := os.LookupEnv("CHANNEL_ID")
     if !ok {
@@ -32,20 +43,12 @@ func SendFloppa(s *discordgo.Session) {
 
     _, err := s.ChannelMessageSendComplex(
         channelId,
-        &discordgo.MessageSend{
-            Embed: &discordgo.MessageEmbed{
-                Title: "Floppa of the day",
-                Image: &discordgo.MessageEmbedImage{
-                    URL: "https://media.tenor.co/videos/a97a96e86b5805aec031c6625b1e13c0/mp4",
-                    Width: 300,
-                    Height: 300,
-                },
-            },
-        },
+        &discordgo.MessageSend{Embed: getEmbed()},
     )
 
     if err != nil {
         logger.Log(err.Error())
+        return
     }
 
     logger.Log("Floppa sent")
