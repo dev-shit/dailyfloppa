@@ -20,10 +20,18 @@ var commands = []*Command{
         Name: "floppa",
         Handler: floppaHandler,
     },
+    {
+        Name: "bruhmoment",
+        Handler: bruhmomentHandler,
+    },
 }
 
 func floppaHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
     SendFloppa(s)
+}
+
+func bruhmomentHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
+    s.ChannelMessageSend(m.ChannelID, "bruh moment")
 }
 
 func RegisterCommands(s *discordgo.Session) {
