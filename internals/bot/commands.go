@@ -2,6 +2,7 @@ package bot
 
 import (
 	"fmt"
+	"os"
 	"strings"
 
 	"github.com/bwmarrin/discordgo"
@@ -47,8 +48,14 @@ func RegisterCommands(s *discordgo.Session) {
                     fmt.Sprintf("Command '%s' issued by @%s", cmd, m.Author.Username),
                 )
                 c.Handler(s, m)
-                break
+                return
             }
+        }
+
+        emoji, _ := os.LookupEnv("NOT_FOUND_EMOJI")
+        err := s.MessageReactionAdd(m.ChannelID, m.ID, emoji)
+        if err != nil {
+            logger.Log(err.Error())
         }
     })
 }
