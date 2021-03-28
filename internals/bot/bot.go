@@ -21,6 +21,10 @@ func Init() *discordgo.Session {
         panic(err)
     }
 
+    if err := s.Open(); err != nil {
+        panic(err)
+    }
+
     return s
 }
 

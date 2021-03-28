@@ -6,7 +6,6 @@ import (
 
 func main() {
     s := bot.Init()
-    s.Open()
 
     bot.SendFloppa(s)
 
