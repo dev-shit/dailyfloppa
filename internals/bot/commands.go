@@ -35,15 +35,19 @@ func bruhmomentHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 }
 
 func RegisterCommands(s *discordgo.Session) {
-    s.AddHandler(func(handlerSession *discordgo.Session, m *discordgo.MessageCreate){
-        for _, c := range commands {
-            cmd := strings.Split(m.Content, " ")[0]
+    s.AddHandler(func(_ *discordgo.Session, m *discordgo.MessageCreate) {
+        cmd := strings.Split(m.Content, " ")[0]
+        if !strings.HasPrefix(cmd, "f!") {
+            return
+        }
 
+        for _, c := range commands {
             if cmd == "f!" + c.Name {
                 logger.Log(
                     fmt.Sprintf("Command '%s' issued by @%s", cmd, m.Author.Username),
                 )
                 c.Handler(s, m)
+                break
             }
         }
     })
