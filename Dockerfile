@@ -8,7 +8,7 @@ COPY . .
 RUN CGO_ENABLED=0 go build cmd/dailyfloppa/dailyfloppa.go
 
 # Deploy stage
-FROM busybox:1.32.1
+FROM alpine
 WORKDIR /app
 COPY --from=build /src/dailyfloppa ./dailyfloppa
 
